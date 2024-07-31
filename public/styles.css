@@ -1,0 +1,59 @@
+body {
+    font-family: Arial, sans-serif;
+    /* background: linear-gradient(135deg, #f0f8ff, #e6f7ff); */
+    background-image: url("https://images.pexels.com/photos/459051/pexels-photo-459051.jpeg");
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #333;
+}
+
+p {
+    color: #666;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+
+.high-uv {
+    color: #ff0000;
+    font-weight: bold;
+}
+
+.low-uv {
+    color: #008000;
+    font-weight: bold;
+}
+
+
+
