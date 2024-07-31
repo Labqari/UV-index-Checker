@@ -1,0 +1,91 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunscreen Checker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Sunscreen Checker</h1>
+        <p>Find out if you need to apply sunscreen today based on the UV index at your location.</p>
+        <button onclick="checkUV()">Check UV Index</button>
+        <div id="result"></div>
+    </div>
+    <script>
+        async function checkUV() {
+            try {
+                const response = await fetch('/api/uv');
+                const data = await response.json();
+                const uvIndex = data.result.uv;
+                const resultDiv = document.getElementById('result');
+
+                if (uvIndex > 3) {
+                    resultDiv.textContent = `UV Index is ${uvIndex}. You should apply sunscreen today!`;
+                    resultDiv.className = 'high-uv';
+                } else {
+                    resultDiv.textContent = `UV Index is ${uvIndex}. No need for sunscreen today.`;
+                    resultDiv.className = 'low-uv';
+                }
+            } catch (error) {
+                console.error('Error fetching UV data:', error);
+                document.getElementById('result').textContent = 'Error fetching UV data. Please try again later.';
+            }
+        }
+    </script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunscreen Checker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Sunscreen Checker</h1>
+        <p>Find out if you need to apply sunscreen today based on the UV index at your location.</p>
+        <button onclick="checkUV()">Check UV Index</button>
+        <div id="result"></div>
+    </div>
+    <script>
+        async function checkUV() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(async (position) => {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                    try {
+                        const response = await fetch(`/api/uv?lat=${lat}&lng=${lng}`);
+                        const data = await response.json();
+                        const uvIndex = data.result.uv;
+                        const resultDiv = document.getElementById('result');
+
+                        if (uvIndex > 3) {
+                            resultDiv.textContent = `UV Index is ${uvIndex}. You should apply sunscreen today!`;
+                            resultDiv.className = 'high-uv';
+                        } else {
+                            resultDiv.textContent = `UV Index is ${uvIndex}. No need for sunscreen today.`;
+                            resultDiv.className = 'low-uv';
+                        }
+                    } catch (error) {
+                        console.error('Error fetching UV data:', error);
+                        document.getElementById('result').textContent = 'Error fetching UV data. Please try again later.';
+                    }
+                }, (error) => {
+                    console.error('Error getting location:', error);
+                    document.getElementById('result').textContent = 'Error getting location. Please allow location access and try again.';
+                });
+            } else {
+                document.getElementById('result').textContent = 'Geolocation is not supported by this browser.';
+            }
+        }
+    </script>
+</body>
+</html>
+
+
