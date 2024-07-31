@@ -29,7 +29,7 @@ Check out the live version of the website: [Sunscreen Checker](https://uv-index-
    npm install
 
 ### Get your OpenUV API key:
-Visit the OpenUV (https://www.openuv.io/dashboard) website and sign up for an API key.
+Visit the OpenUV (https://www.openuv.io/) website and sign up for an API key.
 
 ### Create a .env file in the root of your project and add your API key:
 
