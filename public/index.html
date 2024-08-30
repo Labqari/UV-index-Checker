@@ -38,7 +38,7 @@
 </html> -->
 
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -86,6 +86,123 @@
         }
     </script>
 </body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunscreen Checker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Fullscreen UV Index Checker Section -->
+    <section id="uv-checker" class="full-screen-section">
+        <div class="container">
+            <h1>Sunscreen Checker</h1>
+            <p>Find out if you need to apply sunscreen today based on the UV index at your location.</p>
+            <button onclick="checkUV()">Check UV Index</button>
+            <div id="result"></div>
+        </div>
+    </section>
+
+    <section id="sunscreen-info" class="content-section">
+        <h2>When to Use Sunscreen</h2>
+        <div class="content-wrapper">
+            <img src="https://images.pexels.com/photos/8215122/pexels-photo-8215122.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Sunscreen" class="sunscreen-image">
+            <div class="text-content">
+                <p>You should apply sunscreen if the UV index is high, especially during peak hours of sunlight. Sunscreen helps protect your skin from harmful UV rays that can cause skin damage and increase the risk of skin cancer. It's especially important to use sunscreen when spending extended periods outdoors or when participating in outdoor activities.</p>
+                <p>In addition, reapply sunscreen every two hours or more often if you’re sweating or swimming. Even on cloudy days, UV rays can penetrate the clouds and harm your skin, so it’s essential to protect your skin every day.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="uv-index-info" class="content-section">
+        <div class="content-wrapper">
+            <div class="text-content">
+                <h2>Understanding the UV Index</h2>
+                <p>The UV index is a measure of the strength of ultraviolet (UV) radiation from the sun. It helps you understand the potential risk of skin damage at different levels of UV exposure. The higher the UV index, the greater the risk of harm to your skin and eyes.</p>
+            </div>
+            
+            <div class="uv-chart-container">
+                <img src="https://www.headhuntersurf.com/cdn/shop/articles/UV_Index_Chart.png?v=1590623243" alt="UV Index Chart" class="uv-chart">
+            </div>
+        </div>
+    </section>
+    
+    <section id="sunscreen-tips" class="content-section">
+        <h2>Tips for Protecting Your Skin</h2>
+        <ul>
+            <li>Apply sunscreen with at least SPF 30.</li>
+            <li>Wear a wide-brimmed hat and sunglasses.</li>
+            <li>Seek shade, especially during peak sun hours (10 AM - 4 PM).</li>
+            <li>Reapply sunscreen every two hours, or more often if swimming or sweating.</li>
+        </ul>
+    </section>
+    
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <p>&copy; 2024 Sunscreen Checker. All rights reserved.</p>
+                <p>Made with ❤️ by <a href="https://abqari.me" target="_blank">Abqari</a></p>
+            </div>
+            <div class="footer-links">
+                <a href="#uv-checker">UV Checker</a> | 
+                <a href="#sunscreen-info">Sunscreen Tips</a> | 
+                <a href="#uv-index-info">UV Index Info</a>
+            </div>
+            <div class="footer-social">
+                <a href="https://twitter.com/yourprofile" target="_blank">Twitter</a> | 
+                <a href="https://linkedin.com/in/yourprofile" target="_blank">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+    
+    
+    <!-- <footer>
+        <p>&copy; 2024 Sunscreen Checker. All rights reserved.</p>
+    </footer> -->
+
+
+    <!-- JavaScript -->
+    <script>
+        async function checkUV() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(async (position) => {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                    try {
+                        const response = await fetch(`/api/uv?lat=${lat}&lng=${lng}`);
+                        const data = await response.json();
+                        const uvIndex = data.result.uv;
+                        const resultDiv = document.getElementById('result');
+
+                        if (uvIndex > 3) {
+                            resultDiv.textContent = `UV Index is ${uvIndex}. You should apply sunscreen today!`;
+                            resultDiv.className = 'high-uv';
+                        } else {
+                            resultDiv.textContent = `UV Index is ${uvIndex}. No need for sunscreen today.`;
+                            resultDiv.className = 'low-uv';
+                        }
+                    } catch (error) {
+                        console.error('Error fetching UV data:', error);
+                        document.getElementById('result').textContent = 'Error fetching UV data. Please try again later.';
+                    }
+                }, (error) => {
+                    console.error('Error getting location:', error);
+                    document.getElementById('result').textContent = 'Error getting location. Please allow location access and try again.';
+                });
+            } else {
+                document.getElementById('result').textContent = 'Geolocation is not supported by this browser.';
+            }
+        }
+    </script>
+</body>
 </html>
+
+
 
 
